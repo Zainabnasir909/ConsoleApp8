@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace ConsoleApp8
 {
@@ -30,7 +31,7 @@ namespace ConsoleApp8
         }
         public void createStudentProfile(string id, string name, string atten, int sem, float c, string dept, string univ, string path)
         {
-            studentId = id;    
+            studentId = id;
             studentName = name;
             attendance = atten;
             semester = sem;
@@ -40,7 +41,7 @@ namespace ConsoleApp8
             list.Add(new Student() { studentId = id, studentName = name, attendance = atten, semester = sem, cgpa = c, department = dept, university = univ });
             using (System.IO.StreamWriter writeFile = new System.IO.StreamWriter(path, true))
             {
-                writeFile.WriteLine(id + Environment.NewLine + name + Environment.NewLine + atten + Environment.NewLine + sem + Environment.NewLine + cgpa + Environment.NewLine + dept + Environment.NewLine + univ + Environment.NewLine);
+                writeFile.WriteLine(id + Environment.NewLine + name + Environment.NewLine + atten + Environment.NewLine + sem + Environment.NewLine + cgpa + Environment.NewLine + dept + Environment.NewLine + univ);
             }
             Console.WriteLine("\n\tProfile of " + name + " created successfully\n");
         }
@@ -48,7 +49,7 @@ namespace ConsoleApp8
         {
             string firstLine = "";
             System.IO.StreamReader file = new System.IO.StreamReader(filePath);
-            while ((firstLine == file.ReadLine()) != null)
+            while ((firstLine = file.ReadLine()) != null)
             {
                 studentId = firstLine;
                 studentName = file.ReadLine();
@@ -57,10 +58,174 @@ namespace ConsoleApp8
                 cgpa = (float)Convert.ToDouble(file.ReadLine());
                 department = file.ReadLine();
                 university = file.ReadLine();
+                list.Add(new Student() { studentId = this.studentId, studentName = this.studentName, attendance = this.attendance, semester = this.semester, cgpa = this.cgpa, department = this.department, university = this.university });
             }
             file.Close();
-            list.Add(new Student() { studentId = this.studentId, studentName = this.studentName, attendance = this.attendance, semester = this.semester, cgpa = this.cgpa, department = this.department, university = this.university });
-            //Console.WriteLine(studentId[1]);
+        }
+        public void searchById(string id)
+        {
+            int count = 0;
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i].studentId == id)
+                {
+                    count++;
+                    Console.WriteLine("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\n", list[i].studentId, list[i].studentName, list[i].attendance, list[i].semester, list[i].cgpa, list[i].department, list[i].university);
+                }
+            }
+            if (count == 0)
+            {
+                Console.WriteLine("\n\tInvalid - Record does not exists\n");
+            }
+        }
+        public void searchByName(string name)
+        {
+            name.ToLower();
+            int count = 0;
+            for (int i = 0; i < list.Count; i++)
+            {
+                string FirstName = list[i].studentName.Substring(0, name.Length);
+                if (FirstName == name)
+                {
+                    count++;
+                    Console.WriteLine("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\n", list[i].studentId, list[i].studentName, list[i].attendance, list[i].semester, list[i].cgpa, list[i].department, list[i].university);
+                }
+            }
+            if (count == 0)
+            {
+                Console.WriteLine("\n\tInvalid - Record Does not exists\n");
+            }
+        }
+        public int checkExistingId(string id)
+        {
+            int count = 0;
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (id == list[i].studentId)
+                {
+                    count++;
+                }
+            }
+            if (count != 0)
+            {
+                return 1;
+            }
+            else
+                return 0;
+        }
+        public void findTopThree()
+        {
+            string[] idArray = new string[list.Count];
+            float[] cgpaArray = new float[list.Count];
+
+            //input in array
+            for (int i = 0; i < list.Count; i++)
+            {
+                idArray[i] = list[i].studentId;
+                cgpaArray[i] = list[i].cgpa;
+            }
+            for (int i = 1; i < list.Count; i++)
+            {
+                float swapCgpa = 0;
+                string swapId = "";
+                if (cgpaArray[i] < cgpaArray[i - 1])
+                {
+                    swapCgpa = cgpaArray[i - 1];
+                    swapId = idArray[i - 1];
+
+                    cgpaArray[i - 1] = cgpaArray[i];
+                    idArray[i - 1] = idArray[i];
+
+                    cgpaArray[i] = swapCgpa;
+                    idArray[i] = swapId;
+                }
+            }
+            for (int i = 3; i > 0; i--)
+            {
+                if (idArray[i] == list[i].studentId)
+                {
+                    Console.WriteLine("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t", list[i].studentId, list[i].studentName, list[i].attendance, list[i].semester, list[i].cgpa, list[i].department, list[i].university);
+                }
+            }
+        }
+        public void display()
+        {
+            for (int i = 0; i < list.Count; i++)
+            {
+                Console.WriteLine("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t", list[i].studentId, list[i].studentName, list[i].attendance, list[i].semester, list[i].cgpa, list[i].department, list[i].university);
+            }
+        }
+        public void deleteRecord(string id)
+        {
+            int count = 0, fileIndex = -1;
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i].studentId == id)
+                {
+                    count++;
+                }
+            }
+            if (count > 0)
+            {
+                list.RemoveAt(count
+);
+                string[] fileLine = File.ReadAllLines(@"D:\LECTURES\BSE05\Visual Programming\Assignments\Assignment 2\test.txt");
+                List<string> deleteList = new List<string>(fileLine);
+                File.Delete(@"D:\LECTURES\BSE05\Visual Programming\Assignments\Assignment 2\test.txt");
+                for (int i = 0; i < fileLine.Length; i++)
+                {
+                    if (fileLine[i] == id)
+                    {
+                        fileIndex = i;
+                        break;
+                    }
+                }
+                deleteList.RemoveRange(fileIndex, 7);
+                Console.WriteLine("\n\tRecord Deletion Successfull");
+                using (StreamWriter writer = File.AppendText(@"D:\LECTURES\BSE05\Visual Programming\Assignments\Assignment 2\test.txt"))
+                {
+                    foreach (string str in deleteList)
+                    {
+                        writer.WriteLine(str);
+                    }
+                }
+            }
+            else
+                Console.WriteLine("\n\tError - Student not found\n");
+        }
+        public void markAttendance()
+        {
+            string[] file = File.ReadAllLines(@"D:\LECTURES\BSE05\Visual Programming\Assignments\Assignment 2\test.txt");
+            int index = 2;
+            for(int i = 0; i<list.Count(); i++)
+            {
+                Console.Write(" {0}\t\t{1}\t\t\t", list[i].studentId, list[i].studentName);
+                attendance = Console.ReadLine();
+                if(attendance == "p" || attendance == "P")
+                {
+                    list[i].attendance = "P";
+                    file[index] = "P";
+                }
+                else if(attendance == "a" || attendance == "A")
+                {
+                    list[i].attendance = "A";
+                    file[index] = "A";
+                }
+                else
+                {
+                    Console.Write("Error - Invalid Input\n");
+                    break;
+                }
+                index = index + 7;
+            }
+            File.WriteAllLines(@"D:\LECTURES\BSE05\Visual Programming\Assignments\Assignment 2\test.txt", file);
+        }
+        public void viewAttendace()
+        {
+            for(int i = 0; i< list.Count; i++)
+            {
+                Console.WriteLine(" {0}\t\t{1}\t\t\t{2}", list[i].studentId, list[i].studentName, list[i].attendance);
+            }
         }
     }
 }
