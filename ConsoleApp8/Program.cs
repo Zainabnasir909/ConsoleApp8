@@ -85,7 +85,6 @@ namespace ConsoleApp8
                     }
                 case 4:
                     {
-                        s.fileReading(filePath);
                         Console.WriteLine("\nList top 03 of Class\n");
                         s.findTopThree();
                         break;
@@ -93,8 +92,7 @@ namespace ConsoleApp8
                 case 5:
                     {
                         Console.WriteLine("\n\tMark Student Attendance\n");
-                        Console.WriteLine("StudentId\tStudent Name\t\tAttendance\n" +
-                            "");
+                        Console.WriteLine("StudentId\tStudent Name\t\tAttendance\n");
                         s.markAttendance();
                         break;
                     }

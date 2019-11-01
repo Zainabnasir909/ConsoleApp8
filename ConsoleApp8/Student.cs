@@ -115,37 +115,10 @@ namespace ConsoleApp8
         }
         public void findTopThree()
         {
-            string[] idArray = new string[list.Count];
-            float[] cgpaArray = new float[list.Count];
-
-            //input in array
-            for (int i = 0; i < list.Count; i++)
+            list.Sort((x, y) => (y.cgpa.CompareTo(x.cgpa)));
+            for (int i = 0; i < 3; i++)
             {
-                idArray[i] = list[i].studentId;
-                cgpaArray[i] = list[i].cgpa;
-            }
-            for (int i = 1; i < list.Count; i++)
-            {
-                float swapCgpa = 0;
-                string swapId = "";
-                if (cgpaArray[i] < cgpaArray[i - 1])
-                {
-                    swapCgpa = cgpaArray[i - 1];
-                    swapId = idArray[i - 1];
-
-                    cgpaArray[i - 1] = cgpaArray[i];
-                    idArray[i - 1] = idArray[i];
-
-                    cgpaArray[i] = swapCgpa;
-                    idArray[i] = swapId;
-                }
-            }
-            for (int i = 3; i > 0; i--)
-            {
-                if (idArray[i] == list[i].studentId)
-                {
-                    Console.WriteLine("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t", list[i].studentId, list[i].studentName, list[i].attendance, list[i].semester, list[i].cgpa, list[i].department, list[i].university);
-                }
+                Console.WriteLine("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t", list[i].studentId, list[i].studentName, list[i].attendance, list[i].semester, list[i].cgpa, list[i].department, list[i].university);
             }
         }
         public void display()
