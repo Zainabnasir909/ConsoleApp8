@@ -70,7 +70,7 @@ namespace ConsoleApp8
                 if (list[i].studentId == id)
                 {
                     count++;
-                    Console.WriteLine("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\n", list[i].studentId, list[i].studentName, list[i].attendance, list[i].semester, list[i].cgpa, list[i].department, list[i].university);
+                    Console.WriteLine("{0}\t\t{1}\t\t{2}\t\t{3}\t\t{4}\t{5}\t\t{6}\n", list[i].studentId, list[i].studentName, list[i].attendance, list[i].semester, list[i].cgpa, list[i].department, list[i].university);
                 }
             }
             if (count == 0)
@@ -88,7 +88,7 @@ namespace ConsoleApp8
                 if (FirstName == name)
                 {
                     count++;
-                    Console.WriteLine("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\n", list[i].studentId, list[i].studentName, list[i].attendance, list[i].semester, list[i].cgpa, list[i].department, list[i].university);
+                    Console.WriteLine("{0}\t\t{1}\t\t{2}\t\t{3}\t\t{4}\t{5}\t\t{6}\n", list[i].studentId, list[i].studentName, list[i].attendance, list[i].semester, list[i].cgpa, list[i].department, list[i].university);
                 }
             }
             if (count == 0)
@@ -118,14 +118,16 @@ namespace ConsoleApp8
             list.Sort((x, y) => (y.cgpa.CompareTo(x.cgpa)));
             for (int i = 0; i < 3; i++)
             {
-                Console.WriteLine("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t", list[i].studentId, list[i].studentName, list[i].attendance, list[i].semester, list[i].cgpa, list[i].department, list[i].university);
+                Console.WriteLine("{0}\t\t{1}\t\t\t{2}", list[i].studentId, list[i].studentName, list[i].cgpa);
             }
         }
         public void display()
         {
+            Console.WriteLine("\nStudentId\tStudent Name\tAttendance\tSemester\tCGPA\tDepartment\tUniveristy\n");
             for (int i = 0; i < list.Count; i++)
             {
-                Console.WriteLine("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t", list[i].studentId, list[i].studentName, list[i].attendance, list[i].semester, list[i].cgpa, list[i].department, list[i].university);
+                
+                Console.WriteLine("{0}\t\t{1}\t\t{2}\t\t{3}\t\t{4}\t{5}\t\t{6}\n", list[i].studentId, list[i].studentName, list[i].attendance, list[i].semester, list[i].cgpa, list[i].department, list[i].university);
             }
         }
         public void deleteRecord(string id)

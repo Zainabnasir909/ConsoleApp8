@@ -30,7 +30,7 @@ namespace ConsoleApp8
                         int result = s.checkExistingId(id);
                         if(result == 1)
                         {
-                            Console.WriteLine("Error - Id" + id + " already exists");
+                            Console.WriteLine("Error - Id " + id + " already exists");
                             break;
                         }
                         Console.Write("Enter Student Name: ");
@@ -58,6 +58,7 @@ namespace ConsoleApp8
                         {
                             Console.Write("\tEnter Student Id\n");
                             id = Console.ReadLine();
+                            Console.WriteLine("\nStudentId\tStudent Name\tAttendance\tSemester\tCGPA\tDepartment\tUniveristy\n");
                             s.searchById(id);
                             break;
                         }
@@ -65,19 +66,20 @@ namespace ConsoleApp8
                         {
                             Console.Write("\tEnter Student Name\n");
                             name = Console.ReadLine();
+                            Console.WriteLine("\nStudentId\tStudent Name\tAttendance\tSemester\tCGPA\tDepartment\tUniveristy\n");
                             s.searchByName(name);
                             break;
                         }
                         else if(searchChoice == 3)
                         {
-                            Console.WriteLine("\tList of All Students\n");
+                            Console.WriteLine("\n\tList of All Students\n");
                             s.display();
                         }
                         break;
                     }
                 case 3:
                     {
-                        Console.WriteLine("Delete Student Record\n\n");
+                        Console.WriteLine("\tDelete Student Record\n\n");
                         Console.Write("\nEnter Student Id: ");
                         id = Console.ReadLine();
                         s.deleteRecord(id);
@@ -85,7 +87,8 @@ namespace ConsoleApp8
                     }
                 case 4:
                     {
-                        Console.WriteLine("\nList top 03 of Class\n");
+                        Console.WriteLine("\n\tList top 03 of Class\n");
+                        Console.WriteLine("StudentId\tStudent Name\t\tCGPA\n");
                         s.findTopThree();
                         break;
                     }
