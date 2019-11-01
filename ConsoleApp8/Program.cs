@@ -11,12 +11,12 @@ namespace ConsoleApp8
     {
         static void Main(string[] args)
         {
-            int id, semester;
-            string name = "", dept = "", univ = "";
+            int semester, choice;
+            string id = "" , name = "", attendance = "", dept = "", univ = "", filePath = "";
             double cgpa;
-            char attendance;
+            filePath = @"D:\LECTURES\BSE05\Visual Programming\Assignments\Assignment 2\\test.txt";
+            Student s = new Student();
             Console.WriteLine("\n 1. Create Student Profile\n 2. Search Student\n 3. Delete Student Record\n 4. List top 03 of Class\n 5. Mark student Attendance\n 6. View Attendance\n\n Choice:");
-            int choice;
             choice = Convert.ToInt32(Console.ReadLine());
             Console.Clear();
 
@@ -24,14 +24,18 @@ namespace ConsoleApp8
             {
                 case 1:
                     {
+                        
                         Console.WriteLine("\tCreate Student Profile\n");
 
                         Console.Write("Enter Student ID: ");
-                        id = Convert.ToInt32(Console.ReadLine());
+                        id = Console.ReadLine();
 
 
                         Console.Write("Enter Student Name: ");
                         name = Console.ReadLine();
+
+                        Console.Write("Enter Attendance (P/A): ");
+                        attendance = Console.ReadLine();
 
                         Console.Write("Enter Semester: ");
                         semester = Convert.ToInt32(Console.ReadLine());
@@ -47,12 +51,14 @@ namespace ConsoleApp8
 
                         Console.Write("Enter University: ");
                         univ = Console.ReadLine();
-                        Student s = new Student();
-                        s.createStudentProfile(id, name, semester, (float)cgpa, dept, univ);
+
+                        s.fileReading(filePath);
+                        s.createStudentProfile(id, name, attendance, semester, (float)cgpa, dept, univ, filePath);
                         break;
                     }
                 case 2:
                     {
+                        s.fileReading(filePath);
                         Console.WriteLine("\tSearch Student\n");
                         Console.WriteLine(" 1. Search by Id\n 2. Search by name\nChoice: ");
                         int searchChoice;
